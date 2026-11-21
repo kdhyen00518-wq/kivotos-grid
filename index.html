@@ -717,34 +717,156 @@
       font-weight: 600;
     }
 
-    /* 사후 칸 상세 모달 (Top 5 + 전체 정답) */
-    .section-subtitle {
+    /* 사후 칸 상세 모달 (칸별 통계 · 정답 탐색) */
+    .inspect-header-col {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .inspect-header-sub {
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--accent);
+    }
+
+    .inspect-summary-box {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      border: 1.5px solid var(--border);
+      background: #ffffff;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+
+    .inspect-summary-count {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    .inspect-dist-badge {
+      padding: 4px 10px;
+      border: 1.5px solid var(--border);
+      background: #ffffff;
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    .inspect-dist-badge.live {
+      background: var(--bg-header);
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .inspect-sec-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 8px;
       margin: 0 0 8px;
+      flex-wrap: wrap;
+    }
+
+    .section-subtitle {
+      margin: 0;
       font-size: 13px;
       font-weight: 900;
       color: var(--text);
     }
 
+    .section-meta {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-sub);
+    }
+
     .top-picks-list {
       display: flex;
       flex-direction: column;
-      gap: 7px;
-      margin-bottom: 16px;
+      gap: 8px;
+      margin-bottom: 18px;
     }
 
     .top-pick-row {
       border: 1.5px solid var(--border);
       background: #ffffff;
-      padding: 7px 9px;
+      padding: 10px 12px;
     }
 
     .top-pick-head {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .top-pick-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+    }
+
+    .top-rank-badge {
+      width: 24px;
+      height: 24px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+      color: #ffffff;
+      font-size: 12px;
+      font-weight: 900;
+      flex-shrink: 0;
+    }
+
+    .top-rank-badge.rank-1 {
+      background: var(--accent);
+    }
+
+    .top-pick-thumb {
+      width: 30px;
+      height: 30px;
+      border: 1.5px solid var(--border);
+      object-fit: cover;
+      background: #dbeeff;
+      flex-shrink: 0;
+    }
+
+    .top-pick-thumb-fallback {
+      width: 30px;
+      height: 30px;
+      border: 1.5px solid var(--border);
+      background: #dbeeff;
+      color: var(--text);
+      font-size: 11px;
+      font-weight: 900;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .top-pick-name {
       font-size: 13px;
       font-weight: 800;
-      margin-bottom: 5px;
+      color: var(--text);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .top-pick-pct {
+      font-size: 13px;
+      font-weight: 900;
+      color: var(--text);
+      flex-shrink: 0;
     }
 
     .top-pick-bar-bg {
@@ -758,26 +880,89 @@
       background: var(--accent);
     }
 
+    .inspect-filter-input {
+      width: 100%;
+      padding: 9px 11px;
+      border: 1.5px solid var(--border);
+      font-size: 13px;
+      font-weight: 600;
+      outline: none;
+      margin-bottom: 10px;
+    }
+
+    .inspect-filter-input:focus {
+      border-color: var(--accent);
+      background: #f8fbff;
+    }
+
+    .candidate-grid-box {
+      border: 1.5px solid var(--border);
+      background: #ffffff;
+      padding: 10px;
+      max-height: 250px;
+      overflow-y: auto;
+    }
+
     .candidate-chips {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 7px;
     }
 
     .candidate-chip {
-      display: inline-flex;
+      display: flex;
+      justify-content: space-between;
       align-items: center;
-      gap: 5px;
-      padding: 4px 8px;
-      border: 1.5px solid var(--border);
-      background: #f8fbff;
+      gap: 6px;
+      padding: 7px 9px;
+      border: 1.5px solid #cbd5e1;
+      background: #ffffff;
       font-size: 12px;
       font-weight: 700;
+      min-width: 0;
+    }
+
+    .candidate-chip-name {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: var(--text);
+    }
+
+    .candidate-chip-pct {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--text-sub);
+      flex-shrink: 0;
     }
 
     .candidate-chip.picked {
-      background: var(--accent);
-      color: #ffffff;
+      border: 2px solid var(--accent);
+      background: var(--bg-header);
+    }
+
+    .candidate-chip.picked .candidate-chip-name {
+      color: var(--text);
+      font-weight: 900;
+    }
+
+    .candidate-chip.picked .candidate-chip-pct {
+      color: var(--accent);
+    }
+
+    .candidate-empty-msg {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 18px 8px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-sub);
+    }
+
+    @media (max-width: 560px) {
+      .candidate-chips {
+        grid-template-columns: repeat(2, 1fr);
+      }
     }
 
     .rules-list {
@@ -951,19 +1136,43 @@
     </div>
   </div>
 
-  <!-- 사후 칸별 인기 픽 Top 5 & 전체 정답 모달 -->
+  <!-- 사후 칸별 통계 · 정답 탐색 모달 -->
   <div class="modal-backdrop" id="inspect-modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="inspect-modal-title">
-    <div class="modal-box" style="max-width: 500px;">
+    <div class="modal-box" style="max-width: 560px;">
       <div class="modal-header">
-        <h2 class="modal-title" id="inspect-modal-title">칸 정답 및 인기 픽</h2>
+        <div class="inspect-header-col">
+          <h2 class="modal-title" id="inspect-modal-title">칸별 통계 · 정답 탐색</h2>
+          <span class="inspect-header-sub" id="inspect-cond-sub">- × -</span>
+        </div>
         <button type="button" class="modal-close" id="btn-close-inspect" aria-label="닫기">×</button>
       </div>
       <div class="modal-body">
-        <div class="cond-chip-row" id="inspect-cond-chips"></div>
-        <h3 class="section-subtitle" id="inspect-top-title">인기 픽 Top 5</h3>
+        <div class="inspect-summary-box">
+          <span class="inspect-summary-count" id="inspect-total-count">전체 정답 후보: 총 0명</span>
+          <span class="inspect-dist-badge" id="inspect-dist-badge">로컬 추정 분포</span>
+        </div>
+
+        <div class="inspect-sec-head">
+          <h3 class="section-subtitle" id="inspect-top-title">커뮤니티 인기 픽 Top 5</h3>
+          <span class="section-meta">라플라스 스무딩 희귀도(%)</span>
+        </div>
         <div class="top-picks-list" id="inspect-top-list"></div>
-        <h3 class="section-subtitle" id="inspect-all-title">전체 정답 학생</h3>
-        <div class="candidate-chips" id="inspect-all-list"></div>
+
+        <div class="inspect-sec-head">
+          <h3 class="section-subtitle">이 칸의 전체 정답 학생 목록</h3>
+          <span class="section-meta" id="inspect-my-pick">내 선택: 없음</span>
+        </div>
+        <input
+          type="text"
+          id="inspect-filter-input"
+          class="inspect-filter-input"
+          placeholder="정답 목록 필터 (이름·별명·초성 검색)..."
+          autocomplete="off"
+          spellcheck="false"
+        />
+        <div class="candidate-grid-box">
+          <div class="candidate-chips" id="inspect-all-list"></div>
+        </div>
       </div>
     </div>
   </div>
@@ -996,8 +1205,8 @@
     //    본인의 Project URL과 Publishable key(sb_publishable_...)를 입력하세요.
     // =========================================================================
     const SUPABASE_CONFIG = {
-      url: "https://YOUR_PROJECT_ID.supabase.co",
-      anonKey: "YOUR_SUPABASE_ANON_KEY",
+      url: "https://yuxutkiawetqpovjtqys.supabase.co",
+      anonKey: "sb_publishable_ztxfcO9zv2TNFPdcA2XFnQ_5t8e9F-3",
       alpha: 1.0
     };
 
@@ -1008,7 +1217,7 @@
       !SUPABASE_CONFIG.url.includes("YOUR_PROJECT_ID") &&
       typeof SUPABASE_CONFIG.anonKey === "string" &&
       SUPABASE_CONFIG.anonKey.length > 10 &&
-      !SUPABASE_CONFIG.anonKey.includes("YOUR_SUPABASE_ANON_KEY");
+      !SUPABASE_CONFIG.anonKey.includes("sb_publishable_ztxfcO9zv2TNFPdcA2XFnQ_5t8e9F-3");
 
     const supabaseClient = isSupabaseConfigured
       ? window.supabase.createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey)
@@ -1223,8 +1432,11 @@
         const idStr = String(s.id);
         const rawName = String(s.name || "");
         const hasDupName = (nameCounts.get(rawName) || 0) > 1;
+        const roleTag = roleShortKr[s.role] || s.role;
         const displayName = hasDupName
-          ? `${rawName} [${roleShortKr[s.role] || s.role}]`
+          ? (rawName.endsWith(")")
+            ? `${rawName.slice(0, -1)}·${roleTag})`
+            : `${rawName}(${roleTag})`)
           : rawName;
         const limitedCode = parseLimitedCode(s.limited);
         const heightNum = typeof s.height === "number" && Number.isFinite(s.height)
@@ -1844,15 +2056,15 @@
       ctx.textAlign = "center";
       ctx.fillText(`${summary.solvedCount} / 9`, W - 132, 93);
 
-      // 4x4 그리드 영역
+      // 4x4 그리드 영역 (좌·우 외곽선 포함 5개 gap, 폭 804px로 하단 요약 박스와 정확히 대칭 정렬)
       const startX = 48;
-      const startY = 180;
-      const headerW = 152;
+      const startY = 176;
+      const headerW = 148;
       const headerH = 82;
-      const cellSize = 216;
+      const cellSize = 212;
       const gap = 4;
-      const gridTotalW = headerW + cellSize * 3 + gap * 4;
-      const gridTotalH = headerH + cellSize * 3 + gap * 4;
+      const gridTotalW = headerW + cellSize * 3 + gap * 5;
+      const gridTotalH = headerH + cellSize * 3 + gap * 5;
 
       ctx.fillStyle = "#1E293B";
       ctx.fillRect(startX, startY, gridTotalW, gridTotalH);
@@ -1971,7 +2183,7 @@
       ctx.fillStyle = "#E6F3FF";
       ctx.fillRect(48, footerY, W - 96, 128);
       ctx.strokeStyle = "#1E293B";
-      ctx.lineWidth = 3;
+      ctx.lineWidth = 4;
       ctx.strokeRect(48, footerY, W - 96, 128);
 
       ctx.textAlign = "left";
@@ -2014,7 +2226,9 @@
       searchMatches: [],
       highlightedIdx: 0,
       liveBoardStats: null,
-      lastRenderedCanvas: null
+      lastRenderedCanvas: null,
+      inspectItems: [],
+      inspectMyStudentId: null
     };
 
     const $ = (id) => document.getElementById(id);
@@ -2438,82 +2652,171 @@
       }
     }
 
+    function renderInspectCandidateGrid(rawQuery = "") {
+      const allListEl = $("inspect-all-list");
+      allListEl.innerHTML = "";
+
+      const q = normalizeText(rawQuery);
+      let items = state.inspectItems;
+
+      if (q) {
+        const isPureCho = [...q].every((ch) => CHOSEONG_SET.has(ch));
+        const matchedIds = new Set();
+        for (const entry of state.searchIndex) {
+          const hit = entry.targets.some((t) =>
+            t.text.includes(q) ||
+            (!isPureCho && isMixedPrefixMatch(t.text, t.cho, q)) ||
+            (isPureCho && t.cho.includes(q))
+          );
+          if (hit) matchedIds.add(entry.student.id);
+        }
+        items = items.filter((item) => matchedIds.has(item.student.id));
+      }
+
+      if (items.length === 0) {
+        const empty = document.createElement("div");
+        empty.className = "candidate-empty-msg";
+        empty.textContent = "검색어와 일치하는 정답 학생이 없습니다.";
+        allListEl.appendChild(empty);
+        return;
+      }
+
+      items.forEach(({ student, pct }) => {
+        const isMine = student.id === state.inspectMyStudentId;
+        const chip = document.createElement("div");
+        chip.className = "candidate-chip" + (isMine ? " picked" : "");
+
+        const nameEl = document.createElement("span");
+        nameEl.className = "candidate-chip-name";
+        nameEl.textContent = isMine ? `★ ${student.name}` : student.name;
+
+        const pctEl = document.createElement("span");
+        pctEl.className = "candidate-chip-pct";
+        pctEl.textContent = `${pct.toFixed(1)}%`;
+
+        chip.appendChild(nameEl);
+        chip.appendChild(pctEl);
+        allListEl.appendChild(chip);
+      });
+    }
+
     function openInspectModal(cellIdx) {
       const r = Math.floor(cellIdx / 3);
       const c = cellIdx % 3;
       const row = state.board.rows[r];
       const col = state.board.cols[c];
       const validCandidates = getCellCandidates(state.board, cellIdx);
-      const myStudentId = state.cells[cellIdx].student ? state.cells[cellIdx].student.id : null;
+      const myStudent = state.cells[cellIdx].student || null;
+      const myStudentId = myStudent ? myStudent.id : null;
 
-      $("inspect-cond-chips").innerHTML = `
-        <span class="cond-chip">${row.catLabel}: ${row.label}</span>
-        <span style="font-weight:900;">×</span>
-        <span class="cond-chip">${col.catLabel}: ${col.label}</span>
-      `;
+      $("inspect-cond-sub").textContent = `${row.label} × ${col.label}`;
+      $("inspect-total-count").textContent = `전체 정답 후보: 총 ${validCandidates.length}명`;
+      $("inspect-my-pick").textContent = myStudent ? `내 선택: ${myStudent.name}` : "내 선택: 없음";
 
-      // Top 5 계산 (실시간 DB 통계 우선, 없으면 로컬 추정 인기도 순)
-      const topListEl = $("inspect-top-list");
-      topListEl.innerHTML = "";
-      let topItems = [];
-      let isLiveTop = false;
+      const cellStat = (state.liveBoardStats && state.liveBoardStats[cellIdx]) || null;
+      const isLiveDist = Boolean(cellStat && cellStat.totalSubmissions > 0);
 
-      if (state.liveBoardStats && state.liveBoardStats[cellIdx] && state.liveBoardStats[cellIdx].totalSubmissions > 0) {
-        isLiveTop = true;
-        const cellStat = state.liveBoardStats[cellIdx];
-        topItems = [...cellStat.countsByStudent.entries()]
-          .sort((a, b) => b[1] - a[1])
-          .slice(0, 5)
-          .map(([sid, cnt]) => ({
-            student: state.studentMap.get(String(sid)),
-            pct: computeLaplaceRarity(cnt, cellStat.totalSubmissions, validCandidates.length),
-            meta: `${cnt}회 선택`
-          }))
-          .filter((x) => Boolean(x.student));
-      } else {
-        topItems = [...validCandidates]
-          .map((s) => ({
+      const distBadge = $("inspect-dist-badge");
+      distBadge.textContent = isLiveDist
+        ? `실시간 분포 (${cellStat.totalSubmissions}건)`
+        : "로컬 추정 분포";
+      distBadge.classList.toggle("live", isLiveDist);
+
+      // 모든 정답 후보의 희귀도(%) 계산
+      const scoredCandidates = validCandidates.map((s) => {
+        if (isLiveDist) {
+          const cnt = cellStat.countsByStudent.get(String(s.id)) || 0;
+          return {
             student: s,
-            pct: estimateLocalRarity(s, validCandidates),
-            meta: "추정 픽률"
-          }))
-          .sort((a, b) => b.pct - a.pct)
-          .slice(0, 5);
-      }
-
-      $("inspect-top-title").textContent = isLiveTop
-        ? "실시간 커뮤니티 인기 픽 Top 5"
-        : "예상 인기 픽 Top 5 (로컬 추정)";
-
-      topItems.forEach((item, rank) => {
-        const div = document.createElement("div");
-        div.className = "top-pick-row";
-        const isMine = item.student.id === myStudentId;
-        div.innerHTML = `
-          <div class="top-pick-head">
-            <span>${rank + 1}. ${item.student.name}${isMine ? " (내 선택)" : ""}</span>
-            <span>${item.pct.toFixed(1)}% · ${item.meta}</span>
-          </div>
-          <div class="top-pick-bar-bg">
-            <div class="top-pick-bar-fill" style="width:${Math.min(100, Math.max(4, item.pct))}%"></div>
-          </div>
-        `;
-        topListEl.appendChild(div);
+            cnt,
+            pct: computeLaplaceRarity(cnt, cellStat.totalSubmissions, validCandidates.length),
+            localWeight: getStudentPopularityWeight(s)
+          };
+        }
+        return {
+          student: s,
+          cnt: 0,
+          pct: estimateLocalRarity(s, validCandidates),
+          localWeight: getStudentPopularityWeight(s)
+        };
       });
 
-      $("inspect-all-title").textContent = `전체 정답 학생 (${validCandidates.length}명)`;
-      const allListEl = $("inspect-all-list");
-      allListEl.innerHTML = "";
-
-      validCandidates
+      // Top 5 정렬 및 상대 게이지 렌더링
+      const topItems = scoredCandidates
         .slice()
-        .sort((a, b) => a.name.localeCompare(b.name, "ko"))
-        .forEach((s) => {
-          const chip = document.createElement("span");
-          chip.className = "candidate-chip" + (s.id === myStudentId ? " picked" : "");
-          chip.textContent = s.name;
-          allListEl.appendChild(chip);
-        });
+        .sort((a, b) => b.pct - a.pct || b.cnt - a.cnt || b.localWeight - a.localWeight)
+        .slice(0, 5);
+
+      const maxPct = topItems.length > 0 ? Math.max(0.1, topItems[0].pct) : 100;
+      const topListEl = $("inspect-top-list");
+      topListEl.innerHTML = "";
+
+      topItems.forEach((item, idx) => {
+        const rank = idx + 1;
+        const barWidth = Math.min(100, Math.max(6, (item.pct / maxPct) * 100));
+
+        const card = document.createElement("div");
+        card.className = "top-pick-row";
+
+        const head = document.createElement("div");
+        head.className = "top-pick-head";
+
+        const left = document.createElement("div");
+        left.className = "top-pick-left";
+
+        const rankBadge = document.createElement("span");
+        rankBadge.className = "top-rank-badge" + (rank === 1 ? " rank-1" : "");
+        rankBadge.textContent = String(rank);
+
+        const img = document.createElement("img");
+        img.className = "top-pick-thumb";
+        img.src = item.student.icon;
+        img.alt = item.student.name;
+        img.onerror = () => {
+          const fb = document.createElement("span");
+          fb.className = "top-pick-thumb-fallback";
+          fb.textContent = item.student.name.slice(0, 2);
+          img.replaceWith(fb);
+        };
+
+        const nameSpan = document.createElement("span");
+        nameSpan.className = "top-pick-name";
+        nameSpan.textContent = item.student.id === myStudentId
+          ? `★ ${item.student.name}`
+          : item.student.name;
+
+        left.appendChild(rankBadge);
+        left.appendChild(img);
+        left.appendChild(nameSpan);
+
+        const pctSpan = document.createElement("span");
+        pctSpan.className = "top-pick-pct";
+        pctSpan.textContent = `${item.pct.toFixed(1)}%`;
+
+        head.appendChild(left);
+        head.appendChild(pctSpan);
+
+        const barBg = document.createElement("div");
+        barBg.className = "top-pick-bar-bg";
+        const barFill = document.createElement("div");
+        barFill.className = "top-pick-bar-fill";
+        barFill.style.width = `${barWidth.toFixed(1)}%`;
+        barBg.appendChild(barFill);
+
+        card.appendChild(head);
+        card.appendChild(barBg);
+        topListEl.appendChild(card);
+      });
+
+      // 전체 정답 목록 (가나다순 정렬 + 필터 초기화)
+      state.inspectItems = scoredCandidates
+        .slice()
+        .sort((a, b) => a.student.name.localeCompare(b.student.name, "ko"));
+      state.inspectMyStudentId = myStudentId;
+
+      const filterInput = $("inspect-filter-input");
+      filterInput.value = "";
+      renderInspectCandidateGrid("");
 
       $("inspect-modal-backdrop").classList.add("open");
     }
@@ -2606,6 +2909,11 @@
             submitGuess(chosen.student);
           }
         }
+      });
+
+      // 사후 정답 목록 필터 입력
+      $("inspect-filter-input").addEventListener("input", (e) => {
+        renderInspectCandidateGrid(e.target.value);
       });
 
       // 결과 공유 버튼 3종
