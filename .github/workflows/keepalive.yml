@@ -1,0 +1,35 @@
+name: Keep Supabase Alive
+
+on:
+  schedule:
+    # 3일마다 UTC 03:00 (한국 시간 오후 12:00) 실행
+    - cron: "0 3 */3 * *"
+  workflow_dispatch:
+
+jobs:
+  ping-supabase:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Query daily_picks table (SELECT 1 row)
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+        run: |
+          set -euo pipefail
+
+          BASE_URL="${SUPABASE_URL%/}"
+          ENDPOINT="${BASE_URL}/rest/v1/daily_picks?select=puzzle_date&limit=1"
+
+          HTTP_CODE=$(curl -sS -o response.txt -w "%{http_code}" \
+            -H "apikey: ${SUPABASE_ANON_KEY}" \
+            -H "Authorization: Bearer ${SUPABASE_ANON_KEY}" \
+            "${ENDPOINT}")
+
+          echo "HTTP Status: ${HTTP_CODE}"
+          cat response.txt
+          echo ""
+
+          if [ "${HTTP_CODE}" -lt 200 ] || [ "${HTTP_CODE}" -ge 300 ]; then
+            echo "::error::Supabase keep-alive ping failed with status ${HTTP_CODE}"
+            exit 1
+          fi
