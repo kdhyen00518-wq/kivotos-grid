@@ -1247,7 +1247,6 @@
           <span class="rule-pill" title="한 보드에서 같은 인물의 이격(바리에이션)은 중복 배치할 수 없습니다.">
             <span class="rule-check">✓</span> 이격 중복 금지
           </span>
-          <button type="button" class="btn" id="btn-upload-json">students_grid.json 불러오기</button>
           <input type="file" id="json-file-input" accept=".json,application/json" style="display: none;" />
         </div>
 
@@ -2084,13 +2083,6 @@
       { id: "atk_pierce", category: "attack", catLabel: "공격", label: "관통", exclusive: true, match: (s) => s.attack === "Pierce" },
       { id: "atk_mystic", category: "attack", catLabel: "공격", label: "신비", exclusive: true, match: (s) => s.attack === "Mystic" },
       { id: "atk_sonic", category: "attack", catLabel: "공격", label: "진동", exclusive: true, match: (s) => s.attack === "Sonic" },
-
-      // 방어 타입 (Unarmed = 특수장갑, ElasticArmor = 탄력장갑, CompositeArmor = 복합장갑)
-      { id: "def_light", category: "defense", catLabel: "방어", label: "경장갑", exclusive: true, match: (s) => s.defense === "LightArmor" },
-      { id: "def_heavy", category: "defense", catLabel: "방어", label: "중장갑", exclusive: true, match: (s) => s.defense === "HeavyArmor" },
-      { id: "def_unarmed", category: "defense", catLabel: "방어", label: "특수장갑", exclusive: true, match: (s) => s.defense === "Unarmed" },
-      { id: "def_elastic", category: "defense", catLabel: "방어", label: "탄력장갑", exclusive: true, match: (s) => s.defense === "ElasticArmor" },
-      { id: "def_composite", category: "defense", catLabel: "방어", label: "복합장갑", exclusive: true, match: (s) => s.defense === "CompositeArmor" },
 
       // 편성
       { id: "squad_main", category: "squad", catLabel: "편성", label: "스트라이커", exclusive: true, match: (s) => s.squad === "Main" },
@@ -3299,7 +3291,7 @@
       const isSyncedJson = state.datasetSourceType === "fetch" || state.datasetSourceType === "upload";
       dom.dataSourceBadge.className = `badge badge-source ${isSyncedJson ? "synced" : ""}`;
       dom.dataSourceBadge.textContent = isSyncedJson
-        ? `${state.datasetSourceLabel} 연동 (${state.students.length}명)`
+        ? `학생 목록 연동 (${state.students.length}명)`
         : `내장 데이터 (${state.students.length}명)`;
 
       dom.btnModeDaily.classList.toggle("active", state.mode === "daily");
@@ -3317,7 +3309,7 @@
       const activeCondCount = state.board ? state.board.activeConditionCount : getActiveConditionPool(state.students).length;
       const sourceNote =
         state.datasetSourceType === "fetch"
-          ? "같은 폴더의 students_grid.json 자동 로드됨"
+          ? "학생 목록 자동 로드됨"
           : state.datasetSourceType === "upload"
             ? `로컬 파일(${escapeHtml(state.datasetSourceLabel)}) 수동 연동됨`
             : "내장 대표 데이터셋 사용 중 (JSON 드래그·불러오기 가능)";
