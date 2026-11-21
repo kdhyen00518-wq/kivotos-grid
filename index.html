@@ -1436,8 +1436,8 @@
        1. 외부 연동 설정 (Supabase & 로컬 아이콘 경로)
        ========================================================================= */
     const SUPABASE_CONFIG = {
-      url: "https://YOUR_PROJECT_ID.supabase.co",
-      anonKey: "YOUR_SUPABASE_ANON_KEY",
+      url: "https://yuxutkiawetqpovjtqys.supabase.co",
+      anonKey: "sb_publishable_ztxfcO9zv2TNFPdcA2XFnQ_5t8e9F-3",
       alpha: 1.0
     };
 
@@ -1451,7 +1451,7 @@
       !SUPABASE_CONFIG.url.includes("YOUR_PROJECT_ID") &&
       typeof SUPABASE_CONFIG.anonKey === "string" &&
       SUPABASE_CONFIG.anonKey.length > 20 &&
-      !SUPABASE_CONFIG.anonKey.includes("YOUR_SUPABASE_ANON_KEY");
+      !SUPABASE_CONFIG.anonKey.includes("sb_publishable_ztxfcO9zv2TNFPdcA2XFnQ_5t8e9F-3);
 
     const supabaseClient = isSupabaseConfigured
       ? window.supabase.createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey)
